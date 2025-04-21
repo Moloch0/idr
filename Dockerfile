@@ -16,6 +16,8 @@ WORKDIR /app
 # 安装必要的依赖（根据您的实际需求修改）
 RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r /app/requirements.txt
 
+RUN python /app/download.py
+
 # 确保run.sh有可执行权限
 RUN chmod +x /app/run.sh
 
