@@ -1,0 +1,13 @@
+input_dim: 642
+d_model: 1024
+n_head: 4
+n_layer: 2
+layer_dropout: 0.45
+seq_dropout: 0.15000000000000002
+pos_emb: rope
+gate_residual: false
+ff_swish: false
+attn_gate_values: true
+mid_dim: 8
+lr: 0.0001
+wd: 2.0
