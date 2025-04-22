@@ -28,7 +28,7 @@ torch.set_float32_matmul_precision("medium")
 # 两个feature，一个emb，一个结构
 
 # %%
-data_path = "saisdata/WSAA_data_test.pkl"
+data_path = "/saisdata/WSAA_data_test.pkl"
 
 # %%
 test_datas = pickle.load(open(os.path.join(data_path), "rb"))
