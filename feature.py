@@ -2,8 +2,6 @@
 import os
 
 
-
-
 # %%
 import pickle
 import h5py
@@ -16,7 +14,7 @@ import torch.nn.functional as F
 from functools import partial
 
 
-from torch.utils.data import Dataset, DataLoader, 
+from torch.utils.data import Dataset, DataLoader
 
 # %%
 import pytorch_lightning as pl
@@ -33,7 +31,7 @@ torch.set_float32_matmul_precision("medium")
 data_path = "saisdata/WSAA_data_test.pkl"
 
 # %%
-test_datas = pickle.load(open(os.path.join( data_path), "rb"))
+test_datas = pickle.load(open(os.path.join(data_path), "rb"))
 
 
 # %%
@@ -86,8 +84,10 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # %%
 from transformers import AutoTokenizer, EsmModel
 
-tokenizer = AutoTokenizer.from_pretrained("facebook/esm2_t30_150M_UR50D")
-model = EsmModel.from_pretrained("facebook/esm2_t30_150M_UR50D")
+tokenizer = AutoTokenizer.from_pretrained(
+    "./models/esm2_t30_150M_UR50D", local_files_only=True
+)
+model = EsmModel.from_pretrained("./models/esm2_t30_150M_UR50D")
 
 # %%
 embedding_list = []
@@ -105,7 +105,7 @@ with torch.no_grad():
         embedding_list.append(embeddings)
 
 os.makedirs("feature")
-esm_embeding_path = os.path.join( "feature", "esm_embeding.h5")
+esm_embeding_path = os.path.join("feature", "esm_embeding.h5")
 
 with h5py.File(esm_embeding_path, "w") as f:
     for i, tensor in enumerate(embedding_list):
@@ -117,8 +117,8 @@ torch.cuda.empty_cache()
 # %%
 from transformers import AutoTokenizer, EsmForProteinFolding
 
-tokenizer = AutoTokenizer.from_pretrained("facebook/esmfold_v1")
-model = EsmForProteinFolding.from_pretrained("facebook/esmfold_v1")
+tokenizer = AutoTokenizer.from_pretrained("./models/esmfold_v1")
+model = EsmForProteinFolding.from_pretrained("./models/esmfold_v1")
 
 # %%
 torch.backends.cuda.matmul.allow_tf32 = True
@@ -240,5 +240,5 @@ stru_embeding_path = os.path.join("feature", "stru_embeding.h5")
 with h5py.File(stru_embeding_path, "w") as f:
     for i, tensor in enumerate(stru_fea_list):
         f.create_dataset(f"embed_{i}", data=tensor)
-
+print("done")
 # %%

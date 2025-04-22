@@ -1,7 +1,8 @@
 
 # Base Images 
 ## 从天池基础镜像构建(from的base img 根据自己的需要更换，建议使用天池open list镜像链接：https://tianchi.aliyun.com/forum/postDetail?postId=67720) 
-FROM registry.cn-shanghai.aliyuncs.com/tcc_public/python:3.10
+FROM ac2-registry.cn-hangzhou.cr.aliyuncs.com/ac2/pytorch:2.5.1.6-cuda12.1.1-py310-alinux3.2104
+#registry.cn-hangzhou.aliyuncs.com/sais-public/pytorch:2.0.0-py3.9.12-cuda11.8.0-u22.04
 
 
 # 创建所需的目录结构
@@ -16,7 +17,7 @@ WORKDIR /app
 # 安装必要的依赖（根据您的实际需求修改）
 RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r /app/requirements.txt
 
-RUN python /app/download.py
+# RUN python /app/download.py
 
 # 确保run.sh有可执行权限
 RUN chmod +x /app/run.sh

@@ -1,2 +1,6 @@
 **ckpt
 *.vscode
+**docker**
+*bin
+*h5
+*tensors
